@@ -1,14 +1,15 @@
 package config
 
 import (
-	"github.com/vivaldy22/mekar-regis-user-service/tools/viper"
 	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 	"log"
 	"net"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/vivaldy22/mekar-regis-user-service/tools/viper"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func InitDB() (*sql.DB, error) {
@@ -34,8 +35,8 @@ func InitDB() (*sql.DB, error) {
 }
 
 func RunServer(db *sql.DB) {
-	host := viper.ViperGetEnv("GRPC_AUTH_HOST", "localhost")
-	port := viper.ViperGetEnv("GRPC_AUTH_PORT", "1010")
+	host := viper.ViperGetEnv("GRPC_USER_HOST", "localhost")
+	port := viper.ViperGetEnv("GRPC_USER_PORT", "1010")
 
 	listener, err := net.Listen("tcp", host+":"+port)
 	if err != nil {
@@ -54,7 +55,7 @@ func RunServer(db *sql.DB) {
 
 	reflection.Register(srv)
 
-	log.Printf("Starting GRPC Eat N' Fit Auth Server at %v port: %v\n", host, port)
+	log.Printf("Starting GRPC Mekar Registration User Server at %v port: %v\n", host, port)
 	if err = srv.Serve(listener); err != nil {
 		log.Fatal(err)
 	}
