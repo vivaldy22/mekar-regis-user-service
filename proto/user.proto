@@ -17,6 +17,7 @@ message User {
     string user_ktp = 4;
     string user_job = 5;
     string user_edu = 6;
+    string user_status = 7;
 }
 
 message UserList {

@@ -1,14 +1,10 @@
 package config
 
 import (
+	"github.com/vivaldy22/mekar-regis-user-service/tools/viper"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/vivaldy22/eatnfit-auth-service-grpc/master/level"
-	"github.com/vivaldy22/eatnfit-auth-service-grpc/master/token"
-	"github.com/vivaldy22/eatnfit-auth-service-grpc/master/user"
-	authservice "github.com/vivaldy22/eatnfit-auth-service-grpc/proto"
-	"github.com/vivaldy22/eatnfit-auth-service-grpc/tools/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -47,14 +43,14 @@ func RunServer(db *sql.DB) {
 	}
 
 	srv := grpc.NewServer()
-	tokenService := token.NewService()
-	authservice.RegisterJWTTokenServer(srv, tokenService)
+	// tokenService := token.NewService()
+	// authservice.RegisterJWTTokenServer(srv, tokenService)
 
-	levelService := level.NewService(db)
-	authservice.RegisterLevelCRUDServer(srv, levelService)
+	// levelService := level.NewService(db)
+	// authservice.RegisterLevelCRUDServer(srv, levelService)
 
-	userService := user.NewService(db)
-	authservice.RegisterUserCRUDServer(srv, userService)
+	// userService := user.NewService(db)
+	// authservice.RegisterUserCRUDServer(srv, userService)
 
 	reflection.Register(srv)
 
