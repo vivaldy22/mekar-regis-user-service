@@ -6,6 +6,9 @@ import (
 	"log"
 	"net"
 
+	"github.com/vivaldy22/mekar-regis-user-service/master/user"
+	userproto "github.com/vivaldy22/mekar-regis-user-service/proto"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/vivaldy22/mekar-regis-user-service/tools/viper"
 	"google.golang.org/grpc"
@@ -44,6 +47,10 @@ func RunServer(db *sql.DB) {
 	}
 
 	srv := grpc.NewServer()
+
+	userService := user.NewService(db)
+	userproto.RegisterUserCRUDServer(srv, userService)
+
 	// tokenService := token.NewService()
 	// authservice.RegisterJWTTokenServer(srv, tokenService)
 
