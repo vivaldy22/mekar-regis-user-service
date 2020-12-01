@@ -1,5 +1,10 @@
 create database mekar_regis_db;
 use mekar_regis_db;
+create table tb_admin (
+    admin_id VARCHAR(36) PRIMARY KEY NOT NULL,
+    admin_uname VARCHAR(100) NOT NULL,
+    admin_pass VARCHAR(255) NOT NULL
+);
 create table tb_user (
     user_id VARCHAR(36) PRIMARY KEY NOT NULL,
     user_name VARCHAR(100) NOT NULL,
@@ -17,6 +22,8 @@ create table tb_edu (
     edu_id VARCHAR(36) PRIMARY KEY NOT NULL,
     edu_name VARCHAR(100) NOT NULL
 );
+insert into tb_admin
+values (UUID(), 'admin', '$2a$04$2ehoD827XT6Oz0rv9X88S.iJUOpUOx5mU5UQCkLNBXjdWoVvHnDh2');
 insert into tb_job
 values ('fc5384f7-3227-11eb-835d-7085c2a10d57', 'PNS'),
     (

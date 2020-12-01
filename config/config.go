@@ -6,6 +6,8 @@ import (
 	"log"
 	"net"
 
+	"github.com/vivaldy22/mekar-regis-user-service/master/auth"
+
 	"github.com/vivaldy22/mekar-regis-user-service/master/edu"
 	"github.com/vivaldy22/mekar-regis-user-service/master/job"
 
@@ -59,6 +61,9 @@ func RunServer(db *sql.DB) {
 
 	eduService := edu.NewService(db)
 	userproto.RegisterEduCRUDServer(srv, eduService)
+
+	authService := auth.NewService(db)
+	userproto.RegisterAuthRPCServer(srv, authService)
 
 	reflection.Register(srv)
 

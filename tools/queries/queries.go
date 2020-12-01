@@ -18,4 +18,6 @@ const (
 
 	GET_ALL_JOBS = `SELECT * FROM tb_job`
 	GET_ALL_EDU  = `SELECT * FROM tb_edu`
+
+	GET_PASSWORD = `SELECT admin_pass FROM tb_admin WHERE admin_uname = ?`
 )

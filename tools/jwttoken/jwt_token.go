@@ -1,23 +1,19 @@
 package jwttoken
 
 import (
-	"errors"
 	"fmt"
+
 	"github.com/dgrijalva/jwt-go"
-	"time"
 )
 
 const (
-	expiredPeriod    = 30
 	formatDateLayout = "2006-01-02 15:04:05"
 )
 
 func JwtEncoder(userName, customKey, hmacSampleSecret string) (string, error) {
-	expiredDate := time.Now().Add(time.Second * expiredPeriod)
 	claims := jwt.MapClaims{
 		"name":      userName,
 		"customKey": customKey,
-		"expiredAt": expiredDate.Format(formatDateLayout),
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -29,6 +25,7 @@ func JwtEncoder(userName, customKey, hmacSampleSecret string) (string, error) {
 	return tokenString, nil
 }
 
+/*
 func JwtDecoder(tokenString, hmacSampleSecret string) (jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -61,3 +58,4 @@ func JwtDecoder(tokenString, hmacSampleSecret string) (jwt.MapClaims, error) {
 		return nil, err
 	}
 }
+*/
