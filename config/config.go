@@ -6,6 +6,9 @@ import (
 	"log"
 	"net"
 
+	"github.com/vivaldy22/mekar-regis-user-service/master/edu"
+	"github.com/vivaldy22/mekar-regis-user-service/master/job"
+
 	"github.com/vivaldy22/mekar-regis-user-service/master/user"
 	userproto "github.com/vivaldy22/mekar-regis-user-service/proto"
 
@@ -51,14 +54,11 @@ func RunServer(db *sql.DB) {
 	userService := user.NewService(db)
 	userproto.RegisterUserCRUDServer(srv, userService)
 
-	// tokenService := token.NewService()
-	// authservice.RegisterJWTTokenServer(srv, tokenService)
+	jobService := job.NewService(db)
+	userproto.RegisterJobCRUDServer(srv, jobService)
 
-	// levelService := level.NewService(db)
-	// authservice.RegisterLevelCRUDServer(srv, levelService)
-
-	// userService := user.NewService(db)
-	// authservice.RegisterUserCRUDServer(srv, userService)
+	eduService := edu.NewService(db)
+	userproto.RegisterEduCRUDServer(srv, eduService)
 
 	reflection.Register(srv)
 

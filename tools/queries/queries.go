@@ -15,4 +15,7 @@ const (
 	DELETE_USER = `UPDATE tb_user
 					SET user_status = 0
 					WHERE user_id = ?`
+
+	GET_ALL_JOBS = `SELECT * FROM tb_job`
+	GET_ALL_EDU  = `SELECT * FROM tb_edu`
 )

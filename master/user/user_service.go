@@ -11,11 +11,11 @@ import (
 	userproto "github.com/vivaldy22/mekar-regis-user-service/proto"
 )
 
-type Service struct {
+type service struct {
 	db *sql.DB
 }
 
-func (s *Service) GetAll(ctx context.Context, empty *userproto.Empty) (*userproto.UserList, error) {
+func (s *service) GetAll(ctx context.Context, empty *userproto.Empty) (*userproto.UserList, error) {
 	var users = new(userproto.UserList)
 	rows, err := s.db.Query(queries.GET_ALL_USERS)
 
@@ -39,7 +39,7 @@ func (s *Service) GetAll(ctx context.Context, empty *userproto.Empty) (*userprot
 	return users, nil
 }
 
-func (s *Service) GetByID(ctx context.Context, id *userproto.ID) (*userproto.User, error) {
+func (s *service) GetByID(ctx context.Context, id *userproto.ID) (*userproto.User, error) {
 	var user = new(userproto.User)
 	row := s.db.QueryRow(queries.GET_USER_BY_ID, id.Id)
 
@@ -51,7 +51,7 @@ func (s *Service) GetByID(ctx context.Context, id *userproto.ID) (*userproto.Use
 	return user, nil
 }
 
-func (s *Service) Create(ctx context.Context, user *userproto.User) (*userproto.User, error) {
+func (s *service) Create(ctx context.Context, user *userproto.User) (*userproto.User, error) {
 	tx, err := s.db.Begin()
 
 	if err != nil {
@@ -76,7 +76,7 @@ func (s *Service) Create(ctx context.Context, user *userproto.User) (*userproto.
 	return user, tx.Commit()
 }
 
-func (s *Service) Update(ctx context.Context, request *userproto.UserUpdateRequest) (*userproto.User, error) {
+func (s *service) Update(ctx context.Context, request *userproto.UserUpdateRequest) (*userproto.User, error) {
 	tx, err := s.db.Begin()
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (s *Service) Update(ctx context.Context, request *userproto.UserUpdateReque
 	return request.User, tx.Commit()
 }
 
-func (s *Service) Delete(ctx context.Context, id *userproto.ID) (*userproto.Empty, error) {
+func (s *service) Delete(ctx context.Context, id *userproto.ID) (*userproto.Empty, error) {
 	tx, err := s.db.Begin()
 	if err != nil {
 		return new(userproto.Empty), err
@@ -119,5 +119,5 @@ func (s *Service) Delete(ctx context.Context, id *userproto.ID) (*userproto.Empt
 }
 
 func NewService(db *sql.DB) userproto.UserCRUDServer {
-	return &Service{db}
+	return &service{db}
 }
