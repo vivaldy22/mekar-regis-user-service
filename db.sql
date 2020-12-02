@@ -24,6 +24,8 @@ create table tb_edu (
 );
 insert into tb_admin
 values (UUID(), 'admin', '$2a$04$2ehoD827XT6Oz0rv9X88S.iJUOpUOx5mU5UQCkLNBXjdWoVvHnDh2');
+insert into tb_user
+values (UUID(), 'Vivaldy Andhira', '1997-05-22', '1234567891011121', 'fc538cf5-3227-11eb-835d-7085c2a10d57', 'ce374139-3228-11eb-835d-7085c2a10d57', 1);
 insert into tb_job
 values ('fc5384f7-3227-11eb-835d-7085c2a10d57', 'PNS'),
     (
