@@ -36,6 +36,17 @@ func (s *service) GetAll(ctx context.Context, empty *userproto.Empty) (*userprot
 	return jobs, nil
 }
 
+func (s *service) GetByID(ctx context.Context, id *userproto.ID) (*userproto.Job, error) {
+	var job = new(userproto.Job)
+	row := s.db.QueryRow(queries.GET_JOB_BY_ID, id.Id)
+
+	err := row.Scan(&job.JobId, &job.JobName)
+	if err != nil {
+		return nil, err
+	}
+	return job, nil
+}
+
 func NewService(db *sql.DB) userproto.JobCRUDServer {
 	return &service{db}
 }

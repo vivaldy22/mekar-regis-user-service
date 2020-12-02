@@ -16,8 +16,10 @@ const (
 					SET user_status = 0
 					WHERE user_id = ?`
 
-	GET_ALL_JOBS = `SELECT * FROM tb_job`
-	GET_ALL_EDU  = `SELECT * FROM tb_edu`
+	GET_ALL_JOBS  = `SELECT * FROM tb_job`
+	GET_JOB_BY_ID = `SELECT * FROM tb_job WHERE job_id = ?`
+	GET_ALL_EDU   = `SELECT * FROM tb_edu`
+	GET_EDU_BY_ID = `SELECT * FROM tb_edu WHERE edu_id = ?`
 
 	GET_PASSWORD = `SELECT admin_pass FROM tb_admin WHERE admin_uname = ?`
 )

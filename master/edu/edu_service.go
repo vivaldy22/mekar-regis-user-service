@@ -35,6 +35,17 @@ func (s *service) GetAll(ctx context.Context, empty *userproto.Empty) (*userprot
 	return edus, nil
 }
 
+func (s *service) GetByID(ctx context.Context, id *userproto.ID) (*userproto.Edu, error) {
+	var edu = new(userproto.Edu)
+	row := s.db.QueryRow(queries.GET_EDU_BY_ID, id.Id)
+
+	err := row.Scan(&edu.EduId, &edu.EduName)
+	if err != nil {
+		return nil, err
+	}
+	return edu, nil
+}
+
 func NewService(db *sql.DB) userproto.EduCRUDServer {
 	return &service{db}
 }
